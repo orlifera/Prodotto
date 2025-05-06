@@ -13,11 +13,13 @@ function Navbar() {
 
     return (
         <nav className='bg-primary m-2 rounded-lg flex items-center justify-between p-2'>
+            <div id="start" aria-hidden className='sr-only'>start</div>
+
             <div aria-label="Logo UniPD" className='w-[10em] h-full flex items-start justify-center p-2'>
                 <Logo />
             </div>
-            <div className='flex items-center gap-8'>
-                <ul className='flex items-center justify-center gap-4 text-white'>
+            <div className='flex items-center m-4 gap-8'>
+                <ul className='flex text-white'>
                     <li>
                         <Link
                             href="/"
@@ -45,10 +47,17 @@ function Navbar() {
                             Problema dei filosofi
                         </Link>
                     </li>
+
+                    <li>
+                        <Link href='https://www.unipd.it/offerta-didattica/corso-di-laurea/scienze?tipo=L&scuola=SC&ordinamento=2025&key=SC2987&cg=scienze' target='_blank' className={`w-full h-full p-3 rounded-md transition ${isActive('/about') ? 'bg-white text-primary font-bold' : ''
+                            }`}>
+                            About
+                        </Link>
+                    </li>
                 </ul>
                 <Toggle />
             </div>
-        </nav>
+        </nav >
     )
 }
 
