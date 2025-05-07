@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from '@/components/ThemeProvider';
 import "./globals.css";
 import NavSwitcher from "@/components/NavSwitcher";
@@ -8,21 +7,13 @@ import BackToTop from "@/components/BackToTop";
 import Footer from "@/components/Footer";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Università degli Studi di Padova",
   description: "WebApp per attività laboratoriali di OpenDay",
 };
 
+
+// Ho preso spunto dal sito womenincs per i colori e la struttura visto che comunque sarà qualcosa di "istituzionale", tutto è modificabile ovviamente
 export default function RootLayout({
   children,
 }: Readonly<{
