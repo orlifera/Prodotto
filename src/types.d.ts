@@ -8,8 +8,7 @@
 export interface User {
     username: string;
     school: string;
-    date: Date;
+    date: string;
 }
 
-export type UsersData = User[];
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { OctagonX } from 'lucide-react';
+import { OctagonX } from "lucide-react";
 import { Button } from "./ui/button";
-import { addUser } from "@/api/gh";
 
 // Array per i nomi randomici
 const randomUsername = [
@@ -13,65 +12,48 @@ const randomUsername = [
     "Topo Sabbia", "Cammello Blu", "Airone Grigio", "Balena Bianca", "Formica Verde"
 ];
 
-
-// Array per i tipi di scuola
-const schools = ["Liceo Scientifico", "Liceo Scienze Applicate", "Liceo Scienze Umane", "Liceo Linguistico", "Istituto Tecnico", "Istituto Professionale", "Altro"];
+const schools = [
+    "Liceo Scientifico", "Liceo Scienze Applicate", "Liceo Scienze Umane",
+    "Liceo Linguistico", "Istituto Tecnico", "Istituto Professionale", "Altro"
+];
 
 export default function UserLog({
     existingUsernames,
     onConfirm,
 }: {
     existingUsernames: string[];
-    onConfirm: (username: string, school: string, date: Date) => void;
+    onConfirm: (username: string, school: string, date: string) => void;
 }) {
     const [username, setUsername] = useState("");
     const [school, setSchool] = useState("");
     const [error, setError] = useState("");
     const errorRef = useRef<HTMLDivElement>(null);
-    const date = new Date();
-
-    // gestisce il session storage con i dati dell'utente
-    useEffect(() => {
-        const saved = sessionStorage.getItem("user");
-        if (saved) {
-            const { username, school, date } = JSON.parse(saved);
-            onConfirm(username, school, date);
-        }
-    }, []);
 
     useEffect(() => {
         if (error && errorRef.current) {
-            errorRef.current.focus(); // Announce error
+            errorRef.current.focus();
         }
     }, [error]);
 
-    // Funzione per generare un nome utente casuale
-    // che non è già presente nella lista degli username esistenti
     const getRandomUsername = () => {
         const available = randomUsername.filter(u => !existingUsernames.includes(u));
         return available[Math.floor(Math.random() * available.length)];
     };
 
-    // Funzione per gestire il submit del form
     const handleSubmit = () => {
-        const trimmed = username.trim(); // rimuovi eventuali spazi dallo username dati da errori di formattazione o di input
-        if (!trimmed || !school) { //se username o scuola sono vuoti
+        const trimmed = username.trim();
+        if (!trimmed || !school) {
             setError("Compila tutti i campi.");
-        } else if (existingUsernames.includes(trimmed)) { //se lo username è già presente
+        } else if (existingUsernames.includes(trimmed)) {
             setError("Questo nome è già usato.");
         } else {
+            const date = new Date().toISOString(); // ISO per salvataggio preciso
             sessionStorage.setItem("user", JSON.stringify({ username: trimmed, school, date }));
             onConfirm(trimmed, school, date);
-
-            addUser({ username: trimmed, school, date })
-                .catch(err => {
-                    console.error("GitHub error:", err);
-                    setError("Errore nel salvataggio remoto. Riprova o contatta un insegnante.");
-                });
         }
     };
 
-    return ( // Renderizza il form di login come popUp
+    return (
         <div
             className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center"
             role="dialog"
@@ -79,7 +61,9 @@ export default function UserLog({
             aria-labelledby="userlog-title"
         >
             <div className="bg-primary/60 dark:bg-primary/50 p-6 rounded-xl w-[90%] max-w-md shadow-xl text-white">
-                <h2 id="userlog-title" className="text-xl font-semibold mb-4">Benvenuto!<span role="decoration">🎉</span> Scegli il tuo nome</h2>
+                <h2 id="userlog-title" className="text-xl font-semibold mb-4">
+                    Benvenuto!<span role="decoration">🎉</span> Scegli il tuo nome
+                </h2>
 
                 <label htmlFor="username" className="block">
                     Nome utente
@@ -98,9 +82,7 @@ export default function UserLog({
                     className="text-sm text-blue-300 underline mb-4 p-0"
                     type="button"
                     id="username-desc"
-                    variant={"link"}
-                    aria-label="Genera un nome casuale"
-                    aria-describedby="username"
+                    variant="link"
                 >
                     Genera un nome casuale
                 </Button>
@@ -137,7 +119,6 @@ export default function UserLog({
                     onClick={handleSubmit}
                     className="bg-white text-primary px-4 py-2 rounded w-full"
                     type="button"
-                    variant={"default"}
                 >
                     Inizia
                 </Button>
