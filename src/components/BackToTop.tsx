@@ -1,5 +1,10 @@
 'use client'
-
+/**
+ * BackToTop component
+ * @description  Bottone che rimanda in cima alla pagina
+ * @author [Orlando Ferazzani]
+ * @returns {JSX.Element} Bottone che rimanda in cima alla pagina
+ */
 import React, { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import { ArrowUp } from 'lucide-react'

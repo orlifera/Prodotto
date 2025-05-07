@@ -2,8 +2,12 @@ import Link from 'next/link'
 import React from 'react'
 import Toggle from '@/components/ui/Toggle'
 import { usePathname } from 'next/navigation'
-import { Button } from './ui/button'
 
+/**
+ * MobileNav component
+ *
+ * @returns {JSX.Element} MobileNav component
+ */
 
 function MobileNav() {
     const pathname = usePathname()

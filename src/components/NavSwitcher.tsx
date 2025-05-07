@@ -4,6 +4,11 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '@/components/Navbar'
 import MobileNav from '@/components/MobileNav';
 
+/**
+ * 
+ * @returns {JSX.Element} NavSwitcher component
+ */
+
 function NavSwitcher() {
     const [width, setWidth] = useState(0); // valore iniziale sicuro per SSR
 
@@ -22,15 +27,13 @@ function NavSwitcher() {
     }, []);
 
     return (
-        <div className='flex flex-col items-center justify-center'>
-            <div className='w-full h-full'>
-                {width > 768 ? (
-                    <Navbar />
-                ) : (
-                    <MobileNav />
-                )}
-            </div>
-        </div>
+
+        width > 768 ? (
+            <Navbar />
+        ) : (
+            <MobileNav />
+        )
+
     )
 }
 

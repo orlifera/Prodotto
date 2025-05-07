@@ -6,6 +6,12 @@ import Toggle from '@/components/ui/Toggle'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+/**
+ * Navbar component
+ * 
+ * @returns {JSX.Element} Navbar component
+ */
+
 function Navbar() {
     const pathname = usePathname()
 

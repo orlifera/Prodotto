@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { OctagonX } from 'lucide-react';
 import { Button } from "./ui/button";
+import { addUser } from "@/api/gh";
 
 // Array per i nomi randomici
 const randomUsername = [
@@ -58,9 +59,15 @@ export default function UserLog({
             setError("Compila tutti i campi.");
         } else if (existingUsernames.includes(trimmed)) { //se lo username è già presente
             setError("Questo nome è già usato.");
-        } else { // salva i dati nel session storage. Ho scelto di mettere anche la data, così sarà più facile per lei visualizzare i dati e capire a che giorno si riferiscono
+        } else {
             sessionStorage.setItem("user", JSON.stringify({ username: trimmed, school, date }));
             onConfirm(trimmed, school, date);
+
+            addUser({ username: trimmed, school, date })
+                .catch(err => {
+                    console.error("GitHub error:", err);
+                    setError("Errore nel salvataggio remoto. Riprova o contatta un insegnante.");
+                });
         }
     };
 
