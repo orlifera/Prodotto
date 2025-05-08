@@ -1,33 +1,29 @@
 import React, { useEffect, useRef, useState } from "react";
 import { OctagonX } from "lucide-react";
 import { Button } from "./ui/button";
+import { Filter } from 'bad-words';
+import { formatDate } from "@/helper/formatDate";
+import { randomUsername, schools, badWords } from "@/data/index";
 
-// Array per i nomi randomici
-const randomUsername = [
-    "Cane Blu", "Gatto Rosso", "Pinguino Viola", "Elefante Verde", "Orso Rosa",
-    "Volpe Arancione", "Aquila Gialla", "Leone Grigio", "Koala Bianco", "Lupo Marrone",
-    "Gufo Nero", "Delfino Celeste", "Scoiattolo Dorato", "Tigre Rossa", "Zebra Viola",
-    "Panda Turchese", "Cervo Beige", "Riccio Lilla", "Fenice Argento", "Tartaruga Azzurra",
-    "Canguro Indaco", "Cobra Giallo", "Ippopotamo Lime", "Scimmia Rosa", "Giraffa Fucsia",
-    "Topo Sabbia", "Cammello Blu", "Airone Grigio", "Balena Bianca", "Formica Verde"
-];
+/**
+ * @description Componente del popup per la registrazione dell'utente.
+ * 
+ * @returns {JSX.Element} UserLog component
+ */
 
-const schools = [
-    "Liceo Scientifico", "Liceo Scienze Applicate", "Liceo Scienze Umane",
-    "Liceo Linguistico", "Istituto Tecnico", "Istituto Professionale", "Altro"
-];
 
-export default function UserLog({
-    existingUsernames,
-    onConfirm,
-}: {
-    existingUsernames: string[];
-    onConfirm: (username: string, school: string, date: string) => void;
+export default function UserLog({ existingUsernames, onConfirm }: {
+    existingUsernames: string[]; onConfirm: (username: string, school: string, date: string) => void;
 }) {
+
     const [username, setUsername] = useState("");
     const [school, setSchool] = useState("");
     const [error, setError] = useState("");
     const errorRef = useRef<HTMLDivElement>(null);
+
+    // Inizializza il filtro per le parole cattive
+    const filter = new Filter();
+    filter.addWords(...badWords);
 
     useEffect(() => {
         if (error && errorRef.current) {
@@ -35,27 +31,38 @@ export default function UserLog({
         }
     }, [error]);
 
+
+    //ritorna un nome casuale tra quelli della lista che non sia già in uso
     const getRandomUsername = () => {
-        const available = randomUsername.filter(u => !existingUsernames.includes(u));
+        const available = randomUsername.filter(u => !existingUsernames.includes(u)); //qua controlla quelli disponibili
         return available[Math.floor(Math.random() * available.length)];
     };
 
+
+    const data = new Date().toISOString() // ISO per salvataggio preciso
+    const date = formatDate(data);
+
     const handleSubmit = () => {
         const trimmed = username.trim();
+        const sanitized = trimmed.toLowerCase().replace(/[^a-z0-9]/g, '');
+
         if (!trimmed || !school) {
             setError("Compila tutti i campi.");
-        } else if (existingUsernames.includes(trimmed)) {
+        } else if (existingUsernames.map(u => u.toLowerCase()).includes(trimmed.toLowerCase())) {
             setError("Questo nome è già usato.");
+        } else if (filter.isProfane(sanitized)) {
+            setError("Il nome utente contiene parole non appropriate.");
         } else {
-            const date = new Date().toISOString(); // ISO per salvataggio preciso
             sessionStorage.setItem("user", JSON.stringify({ username: trimmed, school, date }));
             onConfirm(trimmed, school, date);
         }
     };
 
+
+
     return (
         <div
-            className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center"
+            className="fixed w-full inset-0 z-50 bg-black/70 flex items-center justify-center"
             role="dialog"
             aria-modal="true"
             aria-labelledby="userlog-title"

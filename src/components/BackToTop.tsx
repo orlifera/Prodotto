@@ -37,7 +37,7 @@ export default function BackToTop() {
     return (
         <Button
             onClick={scrollToTop}
-            className="fixed right-4 z-50 rounded-full p-2 shadow-lg md:bottom-4 bottom-20"
+            className="fixed focus:outline-2-blue-500 right-4 z-50 rounded-full p-2 shadow-lg md:bottom-4 bottom-20"
             aria-label="Torna su"
         >
             <ArrowUp className="h-6 w-6" />

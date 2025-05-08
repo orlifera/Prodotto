@@ -1,11 +1,15 @@
 
 import React from 'react'
+import BC from '@/components/BC'
 
-type Props = {}
 
 function page() {
     return (
-        <div>lettori</div>
+        <>
+            <BC currentPage={"Lettori"} />
+            <div className='w-full h-screen'>lettori</div>
+        </>
+
     )
 }
 

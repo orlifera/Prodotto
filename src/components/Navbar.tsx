@@ -5,6 +5,7 @@ import Logo from './Logo'
 import Toggle from '@/components/ui/Toggle'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { SquareArrowOutUpRight } from 'lucide-react'
 
 /**
  * Navbar component
@@ -29,7 +30,7 @@ function Navbar() {
                     <li>
                         <Link
                             href="/"
-                            className={`w-full h-full p-3 rounded-md transition ${isActive('/') ? 'bg-white text-primary font-bold' : ''
+                            className={`flex w-full h-full p-3 rounded-md transition ${isActive('/') ? 'bg-white text-primary font-bold' : ''
                                 }`}
                         >
                             Home
@@ -38,7 +39,7 @@ function Navbar() {
                     <li>
                         <Link
                             href="/lettori"
-                            className={`w-full h-full p-3 rounded-md transition ${isActive('/lettori') ? 'bg-white text-primary font-bold' : ''
+                            className={`flex w-full h-full p-3 rounded-md transition ${isActive('/lettori') ? 'bg-white text-primary font-bold' : ''
                                 }`}
                         >
                             Problema dei lettori
@@ -47,17 +48,18 @@ function Navbar() {
                     <li>
                         <Link
                             href="/filosofi"
-                            className={`w-full h-full p-3 rounded-md transition ${isActive('/filosofi') ? 'bg-white text-primary font-bold' : ''
+                            className={`flex w-full h-full p-3 rounded-md transition ${isActive('/filosofi') ? 'bg-white text-primary font-bold' : ''
                                 }`}
                         >
                             Problema dei filosofi
                         </Link>
                     </li>
 
-                    <li>
-                        <Link href='https://www.unipd.it/offerta-didattica/corso-di-laurea/scienze?tipo=L&scuola=SC&ordinamento=2025&key=SC2987&cg=scienze' target='_blank' className={`w-full h-full p-3 rounded-md transition ${isActive('/about') ? 'bg-white text-primary font-bold' : ''
+                    <li >
+                        <Link href='https://www.unipd.it/offerta-didattica/corso-di-laurea/scienze?tipo=L&scuola=SC&ordinamento=2025&key=SC2987&cg=scienze' target='_blank' className={`flex w-full h-full p-3 rounded-md transition ${isActive('/about') ? 'bg-white text-primary font-bold' : ''
                             }`}>
                             About
+                            <SquareArrowOutUpRight className='items-center justify-center h-4 w-4' />
                         </Link>
                     </li>
                 </ul>

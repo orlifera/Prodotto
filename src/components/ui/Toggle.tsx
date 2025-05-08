@@ -18,9 +18,12 @@ export default function Toggle() {
             variant="outline"
             size="icon"
             onClick={toggleTheme}
+            className="bg-background dark:bg-blue-950"
+            aria-hidden="true"
+            aria-label="Toggle theme"
         >
             {theme === "light" ? (
-                <Sun
+                <Sun className="stroke-amber-600"
                 />
             ) : (
                 <Moon

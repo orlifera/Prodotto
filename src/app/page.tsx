@@ -3,18 +3,25 @@ import { useEffect, useState } from "react";
 import UserLog from "@/components/UserLog";
 import { fetchUsers, updateUsersAuto } from "@/helper/gh";
 import { User } from "@/types";
+import Loader from "@/components/ui/loader";
+import BC from "@/components/BC";
 
 export default function Home() {
   const [users, setUsers] = useState<User[]>([]);
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Funzione sleep per introdurre un ritardo
+  const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
   // Caricamento iniziale degli utenti e del sessionStorage
   useEffect(() => {
+    const firstVisit = !sessionStorage.getItem("hasVisited");
+
     fetchUsers()
-      .then((data) => {
+      .then(async (data) => {
         setUsers(data);
 
-        // Recupera utente da sessionStorage, se presente e valido
         const saved = sessionStorage.getItem("user");
         if (saved) {
           const parsed = JSON.parse(saved) as User;
@@ -27,11 +34,21 @@ export default function Home() {
             sessionStorage.removeItem("user");
           }
         }
+
+        // Mostra il loader solo se è la prima visita
+        if (firstVisit) {
+          await sleep(500);
+        }
+
+        sessionStorage.setItem("hasVisited", "true"); // salva la flag
+        setLoading(false);
       })
       .catch((err) => {
         console.error("Errore nel caricamento utenti:", err);
+        setLoading(false);
       });
   }, []);
+
 
   const handleConfirm = async (username: string, school: string, date: string) => {
     const newUser: User = { username, school, date };
@@ -62,19 +79,29 @@ export default function Home() {
 
   return (
     <>
-      {!user && (
-        <UserLog
-          existingUsernames={users.map((u) => u.username)}
-          onConfirm={handleConfirm}
-        />
+      {loading &&
+        (
+          <Loader />
+        )
+
+      }
+      {!user && !loading && (
+        <div className="w-full h-screen flex items-center justify-center">
+          <UserLog
+            existingUsernames={users.map((u) => u.username)}
+            onConfirm={handleConfirm}
+          />
+        </div>
       )}
-      {user && (
+      {user && !loading && (
         <>
-          <h1 className="text-2xl font-bold">
-            Ciao {user.username}
-            <span role="decoration">👋</span>. ({user.school})
-          </h1>
-          <div className="h-[150em] bg-gray-200 dark:bg-gray-700 rounded-lg mt-4"></div>
+          <BC currentPage={null} />
+          <div className="h-[150em] rounded-lg mt-2">
+            <h1 className="text-2xl font-bold">
+              Ciao {user.username}
+              <span role="decoration">👋</span>. ({user.school})
+            </h1>
+          </div>
           <p id="main-content" className="mb-5">
             Questo è un placeholder per lo skip al maincontent
           </p>

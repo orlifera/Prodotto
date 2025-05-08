@@ -1,24 +1,32 @@
 import React from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 
 
 function Footer() {
     return (
-        <footer aria-label='footer' className='flex mb-[4em]'>
-            <ul className='flex flex-col w-full justify-center items-center gap-4 p-4 bg-gray-800 text-white'>
+        <footer aria-label='footer' className='flex justify-between static bottom-0 sm:mb-0 mb-[4em] w-full bg-gray-900'>
+            <div className='flex flex-col items-center justify-center w-full p-4'>
+                <Image src="/unipd.png" alt='logo' width={200} height={200} className=' m-auto' />
+            </div>
+            <ul className='flex flex-col w-full justify-center items-center gap-4 p-4  text-white'>
                 <li>
-                    test
+                    Università degli Studi di Padova
                 </li>
                 <li>
-                    test
+                    Dipartimento di Matematica
                 </li>
                 <li>
-                    test
+                    Via trieste 63, Padova, 35129
                 </li>
                 <li>
-                    test
+                    <Link href="" className='text-blue-600 underline'>Area riservata</Link>
                 </li>
 
             </ul>
+            <div className='flex flex-col items-center justify-center w-full p-4'>
+                <Image src="/math.png" alt='logo' width={200} height={200} className=' m-auto' />
+            </div>
         </footer >
     )
 }

@@ -1,10 +1,13 @@
 
 import React from 'react'
-
+import BC from '@/components/BC'
 
 function page() {
     return (
-        <div>filosofi</div>
+        <>
+            <BC currentPage={"Filosofi"} />
+            <div className='w-full h-screen'>filosofi</div>
+        </>
     )
 }
 
