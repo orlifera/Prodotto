@@ -96,11 +96,8 @@ export default function Home() {
       {user && !loading && (
         <>
           <BC currentPage={null} />
-          <div className="h-[150em] rounded-lg mt-2">
-            <h1 className="text-2xl font-bold">
-              Ciao {user.username}
-              <span role="decoration">👋</span>. ({user.school})
-            </h1>
+          <div className="h-[150em] flex rounded-lg mt-2">
+
           </div>
           <p id="main-content" className="mb-5">
             Questo è un placeholder per lo skip al maincontent

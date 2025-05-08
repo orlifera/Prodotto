@@ -11,6 +11,7 @@ function Header() {
     return (
         <header aria-roledescription='header' aria-label='header' className='flex items-center justify-center w-full h-24 bg-primary shadow-md p-8'>
             <h1> <Logo /></h1>
+            <div role='avatar'>Ciao</div>
         </header>
     )
 }

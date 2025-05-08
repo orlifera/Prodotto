@@ -15,3 +15,4 @@ export type User = {
 export type BCProps = {
     currentPage: string | null;
 };
+

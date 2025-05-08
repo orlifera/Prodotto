@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from '@/components/ThemeProvider';
 import "./globals.css";
-import NavSwitcher from "@/components/NavSwitcher";
 import Header from "@/components/Header";
 import BackToTop from "@/components/BackToTop";
 import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 
 
@@ -44,7 +44,7 @@ export default function RootLayout({
             <div className="md:hidden block">
               <Header />
             </div>
-            <NavSwitcher />
+            <Navbar />
             <main tabIndex={-1}>
               {children}
             </main>

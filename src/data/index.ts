@@ -15,10 +15,10 @@ export const schools = [
 
 // Array per i nomi randomici
 export const randomUsername = [
-    "Cane Blu", "Gatto Rosso", "Pinguino Viola", "Elefante Verde", "Orso Rosa",
+    "Cane Blu", "Gatto Rosso", "Pinguino Viola", "Elefante Verde",
     "Volpe Arancione", "Aquila Gialla", "Leone Grigio", "Koala Bianco", "Lupo Marrone",
     "Gufo Nero", "Delfino Celeste", "Scoiattolo Dorato", "Tigre Rossa", "Zebra Viola",
-    "Panda Turchese", "Cervo Beige", "Riccio Lilla", "Fenice Argento", "Tartaruga Azzurra",
+    "Panda Turchese", "Cervo Beige", "Riccio Lilla", "Fenice Argento", "Tartaruga Blu",
     "Canguro Indaco", "Cobra Giallo", "Ippopotamo Lime", "Scimmia Rosa", "Giraffa Fucsia",
     "Topo Sabbia", "Cammello Blu", "Airone Grigio", "Balena Bianca", "Formica Verde"
 ];

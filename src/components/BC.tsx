@@ -4,12 +4,12 @@ import { BCProps } from "@/types"
 
 export default function BC({ currentPage }: BCProps) {
     return (
-        <div className="w-[95%] m-auto flex items-baseline gap-2 justify-start">
+        <div className=" sm:mx-2 sm:rounded-b-lg p-2 flex bg-primary/30 items-baseline gap-2 justify-start">
             <p className="text-sm">Ti trovi in:</p>
             <Breadcrumb>
                 <BreadcrumbList>
                     <BreadcrumbItem>
-                        <BreadcrumbLink href="/" className="text-primary">Home</BreadcrumbLink>
+                        <BreadcrumbLink href="/" className="text-destructive">Home</BreadcrumbLink>
                     </BreadcrumbItem>
 
                     {currentPage && (

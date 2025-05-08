@@ -18,7 +18,7 @@ export default function Toggle() {
             variant="outline"
             size="icon"
             onClick={toggleTheme}
-            className="bg-background dark:bg-blue-950"
+            className="bg-background hover:bg-amber-100 dark:bg-blue-950 dark:hover:bg-blue-600"
             aria-hidden="true"
             aria-label="Toggle theme"
         >
@@ -27,6 +27,7 @@ export default function Toggle() {
                 />
             ) : (
                 <Moon
+                    className="stroke-slate-200 "
                 />
             )}
             <span className="sr-only">Toggle theme</span>
