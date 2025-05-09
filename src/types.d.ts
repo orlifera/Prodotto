@@ -16,3 +16,12 @@ export type BCProps = {
     currentPage: string | null;
 };
 
+export type AvatarProps = {
+    username: string | null;
+
+}
+
+export type UserContextType = {
+    user: User | null
+    setUser: (user: User | null) => void
+}

@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import BackToTop from "@/components/BackToTop";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { UserProvider } from "@/context/UserContext";
 
 
 
@@ -41,15 +42,17 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="md:hidden block">
-              <Header />
-            </div>
-            <Navbar />
-            <main tabIndex={-1}>
-              {children}
-            </main>
-            <BackToTop />
-            <Footer />
+            <UserProvider>
+              <div className="md:hidden block">
+                <Header />
+              </div>
+              <Navbar />
+              <main tabIndex={-1}>
+                {children}
+              </main>
+              <BackToTop />
+              <Footer />
+            </UserProvider>
           </ThemeProvider>
 
         </body>

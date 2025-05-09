@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SquareArrowOutUpRight } from 'lucide-react'
 import Avatar from '@/components/Avatar'
+import useUser from '@/context/UserContext'
+
 
 /**
  * Navbar component
@@ -18,6 +20,7 @@ function Navbar() {
 
     const [width, setWidth] = useState<number>(0); // Iniziamo con valore 0 (indefinito)
     const [isMounted, setIsMounted] = useState<boolean>(false); // Stato per verificare se il componente è montato
+    const { user } = useUser()
 
     const pathname = usePathname()
 
@@ -93,9 +96,13 @@ function Navbar() {
                                 <SquareArrowOutUpRight className='items-center justify-center h-4 w-4' />
                             </Link>
                         </li>
-                        <li>
-                            <Avatar />
-                        </li>
+                        {user &&
+                            <li className='group hover:cursor-pointer'>
+                                <Avatar username={user.username} />
+                                <div className='absolute hidden group-hover:block bg-primary w-[5em] h-[5em] text-white'>
+                                    BRUHHHHH {user.username}
+                                </div>
+                            </li>}
                     </ul>
                     <Toggle />
                 </div>
