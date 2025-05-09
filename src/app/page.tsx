@@ -4,7 +4,6 @@ import UserLog from "@/components/UserLog";
 import { fetchUsers, updateUsersAuto } from "@/helper/gh";
 import { User } from "@/types";
 import Loader from "@/components/ui/loader";
-import BC from "@/components/BC";
 import useUser from "@/context/UserContext";
 
 export default function Home() {
