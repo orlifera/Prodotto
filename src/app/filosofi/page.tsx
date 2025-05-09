@@ -5,7 +5,7 @@ import BC from '@/components/BC'
 function page() {
     return (
         <>
-            <BC currentPage={"Filosofi"} />
+            {/* <BC currentPage={"Filosofi"} /> */}
             <div className='w-full h-screen'>filosofi</div>
         </>
     )

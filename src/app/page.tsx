@@ -87,8 +87,8 @@ export default function Home() {
       )}
       {user && !loading && (
         <>
-          <BC currentPage={null} />
-          <div className="h-[150em] flex rounded-lg mt-2">
+          {/* <BC currentPage={null} /> */}
+          <div className="h-[150em] w-full rounded-lg ">
             {user.username}
           </div>
           <p id="main-content" className="mb-5">
