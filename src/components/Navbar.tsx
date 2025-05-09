@@ -20,6 +20,8 @@ function Navbar() {
 
     const [width, setWidth] = useState<number>(0); // Iniziamo con valore 0 (indefinito)
     const [isMounted, setIsMounted] = useState<boolean>(false); // Stato per verificare se il componente è montato
+    const [isMobile, setIsMobile] = useState(false); //controlla se è mobile per l'avatar
+    const [isVisible, setIsVisible] = useState(false); //setta lo stato di visibilità
     const { user } = useUser()
 
     const pathname = usePathname()
@@ -45,6 +47,19 @@ function Navbar() {
         return () => {
             window.removeEventListener("resize", handleResize);
         };
+    }, []);
+
+
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.matchMedia("(hover: none)").matches);
+        };
+
+        checkMobile(); // Check on mount
+        window.addEventListener("resize", checkMobile); // Update on resize
+
+        return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
     // Se il componente non è ancora montato, non renderizzare nulla
@@ -89,18 +104,16 @@ function Navbar() {
                                 Problema dei filosofi
                             </Link>
                         </li>
-
-                        <li >
-                            <Link href='https://www.unipd.it/offerta-didattica/corso-di-laurea/scienze?tipo=L&scuola=SC&ordinamento=2025&key=SC2987&cg=scienze' target='_blank' className="flex w-full h-full p-3 rounded-md transition ">
-                                Il corso
-                                <SquareArrowOutUpRight className='items-center justify-center h-4 w-4' />
-                            </Link>
-                        </li>
                         {user &&
                             <li className='group hover:cursor-pointer'>
                                 <Avatar username={user.username} />
-                                <div className='absolute hidden group-hover:block bg-primary w-[5em] h-[5em] text-white'>
-                                    BRUHHHHH {user.username}
+                                <div className='absolute text-center right-4 top-20 hidden group-hover:block bg-ring p-4 min-w-[10em] min-h-[5em] rounded-md text-white'>
+                                    <p>Ciao {user.username}, benvenuto! <span role="decoration">🎉</span></p>
+                                    <p>{user.school}</p>
+                                    <Link href='https://www.unipd.it/offerta-didattica/corso-di-laurea/scienze?tipo=L&scuola=SC&ordinamento=2025&key=SC2987&cg=scienze' target='_blank' className="flex items-center justify-center text-center underline rounded-md visited:text-purple-700 transition ">
+                                        Dai un sguardo al corso
+                                        <SquareArrowOutUpRight className='items-center justify-center h-4 w-4' />
+                                    </Link>
                                 </div>
                             </li>}
                     </ul>
@@ -131,12 +144,18 @@ function Navbar() {
                                 Filosofi
                             </Link>
                         </li>
-                        <li >
-                            <Link href='https://www.unipd.it/offerta-didattica/corso-di-laurea/scienze?tipo=L&scuola=SC&ordinamento=2025&key=SC2987&cg=scienze' target='_blank' className="flex w-full h-full p-3 rounded-md transition ">
-                                Il corso
-                                <SquareArrowOutUpRight className='items-center justify-center h-4 w-4' />
-                            </Link>
-                        </li>
+                        {user &&
+                            <li className='group' onClick={() => isMobile && setIsVisible(!isVisible)}>
+                                <Avatar username={user.username} />
+                                <div className={`absolute text-center right-12 bottom-8 ${isMobile ? (isVisible ? 'block' : 'hidden') : `'hidden group-hover:block'`} bg-ring p-4 min-w-[10em] min-h-[5em] rounded-t-md rounded-bl-md text-white`}>
+                                    <p>Ciao {user.username}, benvenuto! <span role="decoration">🎉</span></p>
+                                    <p>{user.school}</p>
+                                    <Link href='https://www.unipd.it/offerta-didattica/corso-di-laurea/scienze?tipo=L&scuola=SC&ordinamento=2025&key=SC2987&cg=scienze' target='_blank' className="flex items-center justify-center text-center underline rounded-md visited:text-purple-700 transition ">
+                                        Dai un sguardo al corso
+                                        <SquareArrowOutUpRight className='items-center justify-center h-4 w-4' />
+                                    </Link>
+                                </div>
+                            </li>}
                     </ul>
 
                 </nav >
